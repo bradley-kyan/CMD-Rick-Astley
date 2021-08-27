@@ -4,30 +4,25 @@ using System.Drawing.Imaging;
 using System.IO;
 using System.Reflection;
 using System.Text;
-using System.Resources.Extensions;
 
 namespace Application1
 {
     class Program
     {
-        static string currentPath = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
-
         static void Main(string[] args)
         {
             Image image = Properties.Resources.mygif;
             FrameDimension dimension = new FrameDimension(
                                image.FrameDimensionsList[0]);
             int frameCount = image.GetFrameCount(dimension);
-            StringBuilder sb;
 
             string lyrics = "Never Never Never Never Gonna Gonna Gonna Gonna Give Give Give Give Give You You You You You Up! Up! Up! Up! Up! Up! Up! Up! Up! Never Never Never Never Never Gonna Gonna Gonna Gonna Let Let Let Let Let You You You You You Down! Down! Down! Down! Down! Down! Down! Down! Down!";
             int lyric = 0;
 
+
             // Remember cursor position
             int left = Console.WindowLeft, top = Console.WindowTop;
 
-            char[] chars = { '#', '#', '@', '%', '=', '+',
-                         '*', ':', '-', '.', '"', '|', '<', '>', ' ' };
             for (int i = 0; ; i = (i + 1) % frameCount)
             {
                 Console.Title = lyrics.Split(' ')[lyric];
@@ -40,8 +35,17 @@ namespace Application1
                 {
                     lyric++;
                 }
+                string subtext = "SubmissiveAndBreedable ";
+                string final = "";
+                for (int r = 0; r < 20; r++)
+                {
+                    final += subtext;
+                }
+                char[] sub = final.ToCharArray();
 
-                sb = new StringBuilder();
+                var submiss = new StringBuilder();
+                int index2 = 0;
+
                 image.SelectActiveFrame(dimension, i);
 
                 for (int h = 0; h < image.Height; h++)
@@ -50,15 +54,22 @@ namespace Application1
                     {
                         Color cl = ((Bitmap)image).GetPixel(w, h);
                         int gray = (cl.R + cl.G + cl.B) / 3;
-                        int index = (gray * (chars.Length - 1)) / 255;
-
-                        sb.Append(chars[index]);
+                        int index = gray / 255;
+                        if (index >= 1)
+                            submiss.Append(' ');
+                        else
+                        {
+                            submiss.Append(sub[index2]);
+                            index2++;
+                        }                      
                     }
-                    sb.Append('\n');
+                    submiss.Append('\n');
+                    index2 = 0;
                 }
 
+
                 Console.SetCursorPosition(left, top);
-                Console.Write(sb.ToString());
+                Console.Write(submiss.ToString());
 
                 System.Threading.Thread.Sleep(100);
             }

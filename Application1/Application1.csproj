@@ -3,6 +3,15 @@
   <PropertyGroup>
     <OutputType>Exe</OutputType>
     <TargetFramework>netcoreapp3.1</TargetFramework>
+    <AssemblyName></AssemblyName>
+    <RootNamespace>Application1</RootNamespace>
+    <SignAssembly>false</SignAssembly>
+    <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
+    <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
+    <PackageId>SubApp</PackageId>
+    <Authors>Kyan Bradley</Authors>
+    <Description>Funny App</Description>
+    <Product />
   </PropertyGroup>
 
   <ItemGroup>
